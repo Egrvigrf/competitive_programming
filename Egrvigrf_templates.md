@@ -55,19 +55,17 @@ int r(int a, int b) {
 ```cpp
 #include<bits/stdc++.h>
 using namespace std;
-int main()
-{
-	int i=1;
-	int n = 10;
-	while (i <= n) //一直循环，直到找到不一样的数据
-	{
-		// cout<<i<<endl;
+int main() {
+    int i=1;
+    int n = 10;
+    while (i <= n) { //一直循环，直到找到不一样的数据
+        // cout<<i<<endl;
         system("rd.exe");
-		system("wa.exe");
-		system("ac.exe");
-		if (system("fc ac.txt wa.txt")) { //当 fc 返回 1 时，说明这时数据不一样
-			cout << "WA" << endl;
-			return 0; 
+        system("wa.exe");
+        system("ac.exe");
+        if (system("fc ac.txt wa.txt")) { //当 fc 返回 1 时，说明这时数据不一样
+            cout << "WA" << endl;
+            return 0; 
 		} 		 
 		i++;                     
 	}
@@ -142,10 +140,10 @@ auto& operator<<(ostream& os, const __int128_t& j) {
 
 ## 一些STL
 
-对 vector 进行去重
+对 vector 进行去重  
 `sort(vec.begin(), vec.end());`
 `vec.erase(unique(vec.begin(), vec.end()), vec.end());`
-//或者
+//或者  
 `sort(vec.begin(), vec.end());`
 `vec.resize(unique(vec.begin(), vec.end()) - vec.begin());`
 
@@ -153,10 +151,11 @@ auto& operator<<(ostream& os, const __int128_t& j) {
 因此，在使用 unique 去重之前，通常需要先对容器进行排序，以确保相同的元素都相邻排列，才能正确去重
 
 ## 前缀和
-预处理后可以用O(1)的时间复杂度求一个区间的值
-能显著降低查询时间复杂度
+预处理后可以用O(1)的时间复杂度求一个区间的值  
+能显著降低查询时间复杂度  
+
 ### 一维
-(从原数组)构建
+(从原数组)构建  
 ```cpp
 a[0] = 0;
 for(int i = 1;i <= n; i++) {
@@ -179,7 +178,7 @@ for(int i = 1; i <= n; i++) {
 }
 ```
 
-查询(x1,y1)和(x2,y2)包裹的矩形区域内的和
+查询(x1,y1)和(x2,y2)包裹的矩形区域内的和  
 ```cpp
 int query(int x1 ,int y1 ,int x2, int y2) {
     return sum[x2][y2] - sum[x2][y1-1] - sum[x1-1][y2] + sum[x1-1][y1-1];
@@ -190,23 +189,23 @@ int query(int x1 ,int y1 ,int x2, int y2) {
 
 ### 一维
 不支持边操作边查询
-数组$a$在一个区间$[l,r]$上每个位置都增加相同的值$x$
-如果$a[i] = x$;
-含义是，无限远的数轴上从i位置(包括)开始，每个位置的值变化$x$ 
-可用差分数组标记
+数组$a$在一个区间$[l,r]$上每个位置都增加相同的值$x$  
+如果$a[i] = x$;  
+含义是，无限远的数轴上从i位置(包括)开始，每个位置的值变化$x$  
+可用差分数组标记  
 ```cpp
 a[l] += x;
 a[r+1] -= x;
 ```
-求前缀和即可得到每一位的值
+求前缀和即可得到每一位的值  
 
-### 等差序列差分
+### 等差序列差分  
 
 s    d-s        0          0       ...    0     -e-d    e
 s      d         d          d       ...    d      -e      0     
 s    s+d    s+2d    s+3d    ...    e        0      0  
 
-进行标记
+进行标记  
 ```cpp
 void op(int l, int r, int s, int e,int d) {
     ans[l] += s;
@@ -218,8 +217,8 @@ void op(int l, int r, int s, int e,int d) {
 求两次前缀和即可
 
 ### 二维差分
-$sum$数组在(x1,y1)和(x2,y2)包裹的矩形区域内每个sum\[i]\[j]的值增加v。
-如果`sum[x][y] = v`，那么大于等于$i >= x,j >= y$的位置的点所有点`sum[i][j]`的值都增加v
+$sum$数组在(x1,y1)和(x2,y2)包裹的矩形区域内每个sum\[i]\[j]的值增加v。  
+如果`sum[x][y] = v`，那么大于等于$i >= x,j >= y$的位置的点所有点`sum[i][j]`的值都增加v  
 ```cpp
 void add(int x1, int y1, int x2, int y2, int v) {
     sum[x1][y1] += v;
@@ -228,7 +227,7 @@ void add(int x1, int y1, int x2, int y2, int v) {
     sum[x1][y2 + 1] -= v;
 }
 ```
-之后再求一遍二维前缀和就可以得到每个点的值
+之后再求一遍二维前缀和就可以得到每个点的值  
 
 ## 二分
 ```cpp
@@ -495,7 +494,8 @@ int main() {
 ```
 
 ## 二分图匹配
-## 举例机器调度 [杭电OJ 1150 Machine Schedule](https://acm.hdu.edu.cn/showproblem.php?pid=1150)
+## 举例机器调度
+[杭电OJ 1150 Machine Schedule](https://acm.hdu.edu.cn/showproblem.php?pid=1150)
 有两台机器A和B以及N个需要运行的任务。每台机器有多种不同的模式（模式0到模式n-1），而每个任务都恰好在一台机器上运行。如果它在机器A上运行，则机器A需要设置为模式ai，如果它在机器B上运行，则机器B需要设置为模式bj。每台机器上的任务可以按照任意顺序执行，但是每台机器每转换一次模式需要重启一次。请合理为每个任务安排一台机器并合理安排顺序，使得机器重启次数尽量少。开始两台机器处于模式0。
 ### 分析
 本质上是一个求最小顶点覆盖的问题，但是注意有一个陷阱。机器初始状态为模式0，可以在输入时预处理这一种状态，直接忽略。
@@ -843,13 +843,13 @@ struct DSU {
 };
 ```
 # 单调栈
-可以求序列中左边/右边第一大/小的元素位置,出栈/入栈可以获得信息
-时间复杂度O(n)
-单调和严格单调有区别
-单调递减栈维护数组中一个数左右两边离他最近的大于（等于）它的值
-，，递增栈，，，，，，，，，，，，，，，，，小于
+可以求序列中左边/右边第一大/小的元素位置,出栈/入栈可以获得信息  
+时间复杂度O(n)  
+单调和严格单调有区别  
+单调递减栈维护数组中一个数左右两边离他最近的大于（等于）它的值  
+单调递增栈维护数组中一个数左右两边离他最近的小于它的值  
 
-after\[i] 表示离 a\[i]最近的右边的 > a\[i] 的元素
+after\[i] 表示离 a\[i]最近的右边的 > a\[i] 的元素  
 ```cpp
 for (int i = 1; i <= n; i++) {
     while (sz >= 1 && a[i] > a[stk[sz]]) {
@@ -888,7 +888,7 @@ while (sz >= 1) {
 
 
 
-维护左/右信息
+维护左/右信息  
 ```cpp
 for (int i = 1; i <= n; i++) {
     while (sz >= 1 && a[i] <= a[stk[sz]]) {
