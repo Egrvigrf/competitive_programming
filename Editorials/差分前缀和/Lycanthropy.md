@@ -1,8 +1,7 @@
 [[差分前缀和]]
-[Lycanthropy](https://www.luogu.com.cn/problem/P5026)
-为了防止边界处理的讨论，直接在数组的左边和右边扩大了offset,避免出错
+[Lycanthropy](https://www.luogu.com.cn/problem/P5026)  
+为了防止边界处理的讨论，直接在数组的左边和右边扩大了offset,避免出错  
 ```cpp
-```c++
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
@@ -60,5 +59,4 @@ int main() {
  * author:  Egrvigrf
  * created: 2024-07-27 20:01
 **/
-```
 ```

@@ -5,10 +5,13 @@ You really love gorillas, so you decided to organize a photoshoot for them. Gori
 **Input**
 The first line contains an integer $t$ ($1 \le t \le 10^3$) — the number of test cases. The descriptions of the test cases follow. The first line contains integers $n$, $m$, $k$ ($1 \le n, m \le 2 \cdot 10^5$, $1 \le n \cdot m \le 2 \cdot 10^5$, $1 \le k \le \min(n, m)$) — the dimensions of the grid and the side length of the square. The second line contains an integer $w$ ($1 \le w \le n \cdot m$) — the number of gorillas. The third line contains $w$ integers $a_1, a_2, \ldots, a_w$ ($1 \le a_i \le 10^9$) — the heights of the gorillas. It is guaranteed that the sum of $n \cdot m$ across all test cases does not exceed $2 \cdot 10^5$. The same guarantee applies to $w$.
 
-贪心地考虑把从高到矮把大猩猩放入从密到疏的格子里。
-在n\*m的网格里饱和放入k\*k的矩阵，用二维差分快速计算每个格子的重叠矩阵数目。
-重叠数目从大到小排序，猩猩身高从高到矮排序，相乘求和。
+---
 
+贪心地考虑把从高到矮把大猩猩放入从密到疏的格子里。  
+在n\*m的网格里饱和放入k\*k的矩阵，用二维差分快速计算每个格子的重叠矩阵数目。  
+重叠数目从大到小排序，猩猩身高从高到矮排序，相乘求和。  
+
+---
 ```cpp
 #define int long long
 void solve() {
