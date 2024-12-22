@@ -29,7 +29,7 @@ signed main() {
 
 ## 对拍
 
-输入输出重定向
+输入输出重定向  
 ```cpp
 // wa.cpp, 存放待寻找错误的代码
 freopen("rd.txt","r",stdin);
@@ -43,7 +43,7 @@ freopen("ac.out","w",stdout);
 freopen("rd.txt", "w", stdout);
 ```
 
-随机数生成
+随机数生成  
 ```cpp
 mt19937 rnd(chrono::steady_clock::now().time_since_epoch().count());
 int r(int a, int b) {
@@ -51,7 +51,7 @@ int r(int a, int b) {
 }
 ```
 
-对拍器
+对拍器  
 ```cpp
 #include<bits/stdc++.h>
 using namespace std;
@@ -148,7 +148,7 @@ auto& operator<<(ostream& os, const __int128_t& j) {
 `vec.resize(unique(vec.begin(), vec.end()) - vec.begin());`
 
 对于 unique 函数来说，要求元素必须是相邻的才能进行去重操作，而且它只会去除相邻的重复元素。  
-因此，在使用 unique 去重之前，通常需要先对容器进行排序，以确保相同的元素都相邻排列，才能正确去重
+因此，在使用 unique 去重之前，通常需要先对容器进行排序，以确保相同的元素都相邻排列，才能正确去重  
 
 ## 前缀和
 预处理后可以用O(1)的时间复杂度求一个区间的值  
@@ -166,8 +166,8 @@ for(int i = 1;i <= n; i++) {
 `a[r] - a[l-1]` 
 ``
 ### 二维
-求一个矩形区域的所有值的和
-(从原数组)构建
+求一个矩形区域的所有值的和  
+(从原数组)构建  
 ```cpp
 for(int i = 0; i <= m; i++) sum[0][i] = 0;
 for(int i = 0; i <= n; i++) sum[i][0] = 0;
@@ -188,7 +188,7 @@ int query(int x1 ,int y1 ,int x2, int y2) {
 ## 差分
 
 ### 一维
-不支持边操作边查询
+不支持边操作边查询  
 数组$a$在一个区间$[l,r]$上每个位置都增加相同的值$x$  
 如果$a[i] = x$;  
 含义是，无限远的数轴上从i位置(包括)开始，每个位置的值变化$x$  
@@ -214,7 +214,7 @@ void op(int l, int r, int s, int e,int d) {
     ans[r + 2] += e;
 }
 ```
-求两次前缀和即可
+求两次前缀和即可  
 
 ### 二维差分
 $sum$数组在(x1,y1)和(x2,y2)包裹的矩形区域内每个sum\[i]\[j]的值增加v。  
@@ -251,10 +251,11 @@ while (l <= r) {
 
 有n个点，m条边（无向图开双倍）
 cnt：边号
-e\[cnt].to ：与第cnt条边相连的边
-e\[cnt].to ：第cnt条边的邻边
-e\[cnt].w  ：第cnt条边的权值
-head\[x]   ：点x的头边号
+e\[cnt].to ：与第cnt条边相连的边  
+e\[cnt].to ：第cnt条边的邻边  
+e\[cnt].w  ：第cnt条边的权值  
+head\[x]   ：点x的头边号  
+
 ```cpp
 int cnt = 1;
 int head[MAXN];
@@ -262,15 +263,15 @@ int to[MAXM]; //无向图开双倍
 int nx[MAXM]; //无向图开双倍
 int w[MAXM];  //无向图开双倍
 ```
-多组数据一定要初始化head和cnt
-to,nx,w数组由cnt控制，所以只要cnt重置为1即可
+多组数据一定要初始化head和cnt  
+to,nx,w数组由cnt控制，所以只要cnt重置为1即可  
 
 ```cpp
 memset(head,0,sizeof(head));
 cnt = 1;
 ```
 
-添加边
+添加边  
 ```cpp
 void addedge(int x,int y,int v) {
     w[cnt] = v; 
@@ -280,7 +281,7 @@ void addedge(int x,int y,int v) {
 }
 ```
 
-遍历和点x所连接的所有边
+遍历和点x所连接的所有边  
 ```cpp
 for(int i = head[x]; i > 0; i = nx[i]) {
     int t = to[i];
@@ -581,6 +582,7 @@ ll hash_(string& s) {
 质数：433、499、599、1000000007  
 得到子串哈希O(1)  
 比较一个字符串中的两个子串是否相等的时间复杂度能从O(n)降低到O(1)  
+
 ```cpp
 mt19937_64 rng(std::chrono::steady_clock::now().time_since_epoch().count());
 int base = rng();
@@ -596,10 +598,10 @@ ll hash1 = hash_[r] - hash_[l]*power[r-l+1];
 
 ## KMP
 
-字符串匹配算法
-求字符串$s1$中匹配的$s2$字符串
-如果暴力匹配最糟糕时间复杂度$O(n*m)$,用KMP可以降低到$O(n+m)$
-构建一个nx数组存放每一位的前一位的除本身外的字串的最长前缀后缀匹配数量
+字符串匹配算法  
+求字符串$s1$中匹配的$s2$字符串  
+如果暴力匹配最糟糕时间复杂度$O(n*m)$,用KMP可以降低到$O(n+m)$  
+构建一个nx数组存放每一位的前一位的除本身外的字串的最长前缀后缀匹配数量  
 
 ```cpp
 vector<int> nx(m + 1, 0);
@@ -657,9 +659,9 @@ int ksm(int a,int b) {
 ```
 
 ## 逆元
-费马小定理求逆元，要求b和mod互质
-// b的逆元 = ksm(b,mod-2)
-// (a / b) % mod = (a * b的逆元) % mod 
+费马小定理求逆元，要求b和mod互质  
+// b的逆元 = ksm(b,mod-2)  
+// (a / b) % mod = (a * b的逆元) % mod   
 
 递推求逆元
 ```cpp
@@ -670,9 +672,10 @@ for (int i = 2; i < mod; ++i)
 
 
 ### 卢卡斯定理
-当n,m很大时求组合数
+当n,m很大时求组合数  
+
 $$
-\binom{n}{m} = \binom{m \mod p}{n \mod p} \cdot \binom{\lfloor \frac{m}{p} \rfloor}{\lfloor \frac{n}{p} \rfloor} \quad (\text{mod } p)
+\binom{n}{m} = \binom{m \mod p}{n \mod p} \cdot \binom{\lfloor \frac{m}{p} \rfloor}{\lfloor \frac{n}{p} \rfloor} \quad (\text{mod } p)  
 $$
 
 ```cpp
@@ -715,7 +718,7 @@ int Lucas(int n, int m) {
 
 
 ## 矩阵快速幂
-类似快速幂，初始I等于单位矩阵
+类似快速幂，初始I等于单位矩阵  
 ```cpp
 const int Mod = 1000000007;
 struct Matrix {
@@ -759,10 +762,10 @@ signed main() {
 ```
 ## 素数筛
 ### 埃氏筛
-先假设假设1-n所有数都是素数
-从2开始筛
-小于调和级数O(n*log(n))
-时间复杂度O(n*log(logn))
+先假设假设1-n所有数都是素数  
+从2开始筛  
+小于调和级数O(n*log(n))  
+时间复杂度O(n*log(logn))  
 ```cpp
 ll countPrimes(ll n) {
     bool vis[n + 1];
@@ -862,7 +865,7 @@ while (sz >= 1) {
 }
 ```
 
-分别求左边/右边
+分别求左边/右边  
 ```cpp
 int sz = 0;
 for (int i = 0; i < n; i++) {
@@ -888,7 +891,7 @@ while (sz >= 1) {
 
 
 
-维护左/右信息  
+维护左/右信息   
 ```cpp
 for (int i = 1; i <= n; i++) {
     while (sz >= 1 && a[i] <= a[stk[sz]]) {
@@ -911,14 +914,14 @@ for (int i = 1; i <= n; i++) {
 
 ## 单调队列
 
-维护区间最值，时间复杂度O(n)
-单调递减维护区间最大值可能性
-入队时，当一个元素的下标更加大且值 >= , 优化队内元素，R指针回退
-每次取取a\[q\[L]] 即是最大值
-出队时判断队首L元素的是否满足在区间内
+维护区间最值，时间复杂度O(n)  
+单调递减维护区间最大值可能性  
+入队时，当一个元素的下标更加大且值 >= , 优化队内元素，R指针回退  
+每次取取a\[q\[L]] 即是最大值  
+出队时判断队首L元素的是否满足在区间内  
 
 
-求区间长度为k的最大值
+求区间长度为k的最大值  
 
 ```cpp
 int L = 1, R = 0; // [L,R]
@@ -1012,23 +1015,23 @@ void solve() {
 ```
 ## 线段树
 #### 懒标记
-新建一下数组用于存放懒信息
-如果能不更新就不更新，必须更新时只往下更新一层。
-为什么懒？只有用到当前节点所覆盖的区间时，才下发懒标记
-如何下发，分别清算左，右区间，再分别给左右区间打上懒标记，自身懒标记清除。
-为什么效率高？可能多次的修改只需要传递一次，优化常数，（一次传递包括了多次修改）
+新建一下数组用于存放懒信息  
+如果能不更新就不更新，必须更新时只往下更新一层。 
+为什么懒？只有用到当前节点所覆盖的区间时，才下发懒标记  
+如何下发，分别清算左，右区间，再分别给左右区间打上懒标记，自身懒标记清除。 
+为什么效率高？可能多次的修改只需要传递一次，优化常数，（一次传递包括了多次修改） 
 
 #### 线段树常见方法一览
-void build(l, r, i)  : 建树
-void up(i..) : 根据子范围的查询信息，把父范围的查询信息更新正确
-void down(i..) : 父范围的懒信息，往下只下发一层，给左范围、右范围，然后父范围的懒信息清空
-void apply(): 当前范围被修改任务全覆盖时 或 父范围发下来的懒更新时，信息数组们如何修改
-void midify(jobl, jobr, jobv, l, r, i) : 范围上修改维护信息
-int query(jobl, jobr, l, r, i) : 范围上的信息查询任务
+void build(l, r, i)  : 建树  
+void up(i..) : 根据子范围的查询信息，把父范围的查询信息更新正确  
+void down(i..) : 父范围的懒信息，往下只下发一层，给左范围、右范围，然后父范围的懒信息清空  
+void apply(): 当前范围被修改任务全覆盖时 或 父范围发下来的懒更新时，信息数组们如何修改  
+void midify(jobl, jobr, jobv, l, r, i) : 范围上修改维护信息  
+int query(jobl, jobr, l, r, i) : 范围上的信息查询任务  
 
 #### 1.懒标记线段树维护简单区间信息
-根据要维护的信息修改Node和Tag结构体
-重载+运算符
+根据要维护的信息修改Node和Tag结构体  
+重载+运算符  
 
 ```cpp
 struct LazySegmentTree {
@@ -1094,8 +1097,8 @@ struct LazySegmentTree {
 
 
 [洛谷](https://www.luogu.com.cn/problem/P1253)
-区间最值
-操作：区间加，区间重置
+区间最值  
+操作：区间加，区间重置  
 ```cpp
 struct Tag {
     int addV, resetV;
@@ -1135,8 +1138,8 @@ struct Node {
 ```
 
 [洛谷](https://www.luogu.com.cn/problem/P3373)
-维护区间和
-操作： 加，乘
+维护区间和  
+操作： 加，乘  
 ```cpp
 int m;
 struct Tag {
@@ -1167,9 +1170,9 @@ struct Node {
 ## 背包DP
 
 ### 01背包
-每种物品只能选择一次,设有$n$种物品，每种物品的价值为$w_i$，体积为$v_i$，背包的容量为$V$。
-`ans[i][j]`代表有前$i$个物品，空间为j时的价值最大值。
-取选第$i$个物品与不选第$i$个物品的较大值。
+每种物品只能选择一次,设有$n$种物品，每种物品的价值为$w_i$，体积为$v_i$，背包的容量为$V$。 
+`ans[i][j]`代表有前$i$个物品，空间为j时的价值最大值。 
+取选第$i$个物品与不选第$i$个物品的较大值。 
 
 ```c++
 for (int i = 1; i <= n; i++) {
@@ -1182,8 +1185,8 @@ for (int i = 1; i <= n; i++) {
     }
 }
 
-滚动数组压缩空间
-**从后往前**更新
+滚动数组压缩空间  
+**从后往前**更新  
 ```c++
 for(int i = 1; i <= n; i++) {
     for(int j = V; j >= v[i]; j--) {
@@ -1192,8 +1195,8 @@ for(int i = 1; i <= n; i++) {
 }
 ```
 ### 完全背包
-每种物品可以取任意次。
-转移方程和01背包类似
+每种物品可以取任意次。 
+转移方程和01背包类似  
 ```c++
 for (int i = 1; i <= n; i++) {
     for (int j = 1; j <= V; j++) {
@@ -1206,7 +1209,7 @@ for (int i = 1; i <= n; i++) {
 }
 ```
 
-滚动数组压缩空间
+滚动数组压缩空间  
 **从前往后**更新
 ```c++
 for(int i = 1; i <= n; i++) {
@@ -1218,8 +1221,8 @@ for(int i = 1; i <= n; i++) {
 
 
 ### n维背包
-有多个考虑因素
-以二维01背包为例，增加条件背包最大承重为$M$，每一件物品的质量为$m_i$。
+有多个考虑因素  
+以二维01背包为例，增加条件背包最大承重为$M$，每一件物品的质量为$m_i$。 
 ```c++
 for (int i = 1; i <= n; i++)//放置第i件物品
 {
@@ -1237,7 +1240,7 @@ for (int i = 1; i <= n; i++)//放置第i件物品
 }
 ```
 
-滚动数组压缩空间
+滚动数组压缩空间  
 ```c++
 for (int i = 1; i <= n; i++) {
     for (int j = V; j >= v[i]; j--) { // j为当前体积
@@ -1471,9 +1474,9 @@ circle Smallestcir(point *u,int size){
 ```
 ## 凸包
 
-[圈奶牛](https://www.luogu.com.cn/problem/P2742)
-Andrew法
-手写栈，先求求下凸包，后求上凸包
+[圈奶牛](https://www.luogu.com.cn/problem/P2742)  
+Andrew法  
+手写栈，先求求下凸包，后求上凸包  
 ```cpp
 int stk[N << 1]; // 记得开双倍
 vector<Point> andrew(Point* poly,int n) {
