@@ -3,6 +3,6 @@ This repository tracks my competitive programming journey, featuring problem sol
 
 题解和板子库。  
 
-CF handle: elate  
+[CF handle: elate](https://codeforces.com/profile/elate) 
 
 
