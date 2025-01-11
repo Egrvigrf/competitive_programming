@@ -257,14 +257,16 @@ e\[cnt].w  ：第cnt条边的权值
 head\[x]   ：点x的头边号  
 
 ```cpp
-int cnt = 1;
-int head[MAXN];
-int to[MAXM]; //无向图开双倍
-int nx[MAXM]; //无向图开双倍
-int w[MAXM];  //无向图开双倍
+int id = 1;
+int head[N]; 
+int to[M];  
+int nx[M]; 
+int w[N];
+//N是点的最大数量，M是边的最大数量，无向图记得开双倍
 ```
-多组数据一定要初始化head和cnt  
-to,nx,w数组由cnt控制，所以只要cnt重置为1即可  
+多组数据一定要初始化head和id  
+to,nx,w数组由id控制，所以只要id重置为1即可  
+head数组必须重置为0,因为判断根据0判断有无相邻节点
 
 ```cpp
 memset(head,0,sizeof(head));
@@ -274,17 +276,17 @@ cnt = 1;
 添加边  
 ```cpp
 void addedge(int x,int y,int v) {
-    w[cnt] = v; 
-    to[cnt] = y;
-    nx[cnt] = head[x]; 
-    head[x] = cnt++; //添加的过程不断更新链表的头部，对于一个节点，最后添加的边是链表头。
+    w[id] = v; 
+    to[id] = y;
+    nx[id] = head[x]; 
+    head[x] = id++; //添加的过程不断更新链表的头部，对于一个节点，最后添加的边是链表头。
 }
 ```
 
 遍历和点x所连接的所有边  
 ```cpp
 for(int i = head[x]; i > 0; i = nx[i]) {
-    int t = to[i];
+    
 }
 ```
 
@@ -316,11 +318,11 @@ void addedge(int x, int y, int v) {
     e[cnt].w = v;
     head[x] = cnt;
 }
-struct priority {
+struct Node {
     int dis;
     int id;
-    bool operator <(const priority& x)const {
-        return x.dis < dis;
+    bool operator <(const Node& b)const { //重载比较运算符，可以直接放进优先队列
+        return dis > b.dis;
     }
 };
 int main() {
@@ -328,10 +330,10 @@ int main() {
     int n, m, s; // 三个整数n,m,s分别表示点的个数、有向边的个数、出发点的编号
     cin >> n >> m >> s;
     long long dist[n + 1];
-    bool is_visit[n + 1];
+    bool vis[n + 1];
     for (int i = 1; i <= n; i++) {
         dist[i] = inf;
-        is_visit[i] = false;
+        vis[i] = false;
     }
     dist[s] = 0;
     /*使用前向星*/
@@ -340,19 +342,19 @@ int main() {
         cin >> begin >> end >> v;
         addedge(begin, end, v);
     }
-    priority_queue<priority> q;
-    q.push((priority) {0,s});
+    priority_queue<Node> q;
+    q.push((Node) {0,s});
     while (!q.empty()) {
-        priority temp = q.top();
+        Node temp = q.top();
         q.pop();
-        if(is_visit[temp.id]) continue;
-        is_visit[temp.id] = true;
+        if(vis[temp.id]) continue;
+        vis[temp.id] = true;
         int cur = temp.id;
         for (int j = head[cur]; j != 0; j = e[j].next) {
             int to = e[j].to;
-            if (!is_visit[to] && dist[cur] + e[j].w < dist[to]) {
+            if (!vis[to] && dist[cur] + e[j].w < dist[to]) {
                 dist[to] = dist[cur] + e[j].w;
-                q.push((priority){dist[to],to});
+                q.push((Node){dist[to],to});
             }
         }
     }
@@ -371,11 +373,11 @@ int main() {
 
 ```cpp
 for(int k = 1; k <= n; k++) { //途径k
-	for(int i = 1; i <= n; i++) {
-		for(int j = 1; j <= n; j++) {
-			dis[i][j] = min(dis[i][j],dis[i][k] + dis[k][j]);
-		}
-	}
+    for(int i = 1; i <= n; i++) {
+        for(int j = 1; j <= n; j++) {
+            dis[i][j] = min(dis[i][j],dis[i][k] + dis[k][j]);
+        }
+    }
 }
 ```
 
