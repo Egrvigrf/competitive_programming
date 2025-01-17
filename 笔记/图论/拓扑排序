@@ -1,0 +1,29 @@
+有依赖的有向无环图
+入度法
+一个节点指向另一个节点，则被指向的节点的度+1。
+依次找出度为0的节点，然后删除它们（这些节点指向的所有节点的度-1），重复这个过程
+注意遍历相邻节点时，如果结束条件为i > 0，那cnt不能从0开始，只能从1开始
+//链式前向星存图
+```c++
+vector<int> ans;
+queue<int> q;
+for (int i = 1; i <= n; i++) {
+    if (v[i] == 0) {
+        q.push(i);
+    }
+}
+while (!q.empty()) {
+    int node = q.front();
+    q.pop();
+    ans.push_back(node);
+    for (int i = head[node]; i > 0; i = nx[i]) {
+        if (--v[to[i]] == 0) q.push(to[i]);
+    }
+}
+for (int i = 0; i < ans.size(); i++) {
+    cout << ans[i];
+    if (i != ans.size() - 1) cout << " ";
+}
+```
+[Ordering_Tasks](https://vjudge.net/problem/UVA-10305)
+拓扑排序-模板
