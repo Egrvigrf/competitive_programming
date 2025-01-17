@@ -1,8 +1,9 @@
 # competitive_programming
-This repository tracks my competitive programming journey, featuring problem solutions and reusable code templates for common algorithms.   
 
-题解和板子库。  
+笔记，题解和板子库。    
+This repository tracks my competitive programming journey, featuring notes, problem solutions and reusable code templates for common algorithms.   
 
-[CF handle: elate](https://codeforces.com/profile/elate) 
+I am elated.  
+[CF handle: elate](https://codeforces.com/profile/elate)   
 
 
