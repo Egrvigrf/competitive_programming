@@ -1,3 +1,11 @@
+set nocp " nocompatible
+filetype plugin indent on
+syn on " syntax
+set nu " number
+set ts=4 sw=4 " tabstop shiftwidth
+set ai cin " autoindent & cindent
+
+au BufNewFile *.cpp -r C:\template.cpp 
 set nobackup
 set noswapfile
 set nocompatible " 不与vi兼容
@@ -39,7 +47,7 @@ inoremap { {}<ESC>i
 inoremap " ""<ESC>i
 map <C-A> ggVG"+y  "ctrl-A复制所有到剪贴板，(gvim)
 
-" 保存文件并编译 C++ 程序并执行
+" 保存文件并编译 C++ 程序并执行（powershell）
 function! CompileAndRun()
     " 保存文件
     write
@@ -94,27 +102,10 @@ highlight Folded guibg=#0A0A0A guifg=#9090D0
 set t_Co=256
 set background=dark
 
-" login
-map <C-L> :call SetTitle()<CR> 
+set guifont=Fira_Code:h14 " set font (comes with windows: Consolas
+set bs=indent,eol,start " fix backsapce error
+set guioptions-=m  "remove menu bar
+set guioptions-=T  "remove toolbar
+set guioptions-=r  "remove right-hand scroll bar
+set guioptions-=L  "remove left-hand scroll bar
 
-func SetTitle()
-
-let l = 0
-let l = l + 1 | call setline(l, '#include <bits/stdc++.h>')
-let l = l + 1 | call setline(l, 'using namespace std;')
-let l = l + 1 | call setline(l, 'using ll = long long;')
-let l = l + 1 | call setline(l, '//#define int ll')
-let l = l + 1 | call setline(l, 'void solve() {')
-let l = l + 1 | call setline(l, '')
-let l = l + 1 | call setline(l, '}')
-let l = l + 1 | call setline(l, '')
-let l = l + 1 | call setline(l, 'signed main() {')
-let l = l + 1 | call setline(l, '	ios::sync_with_stdio(false);')
-let l = l + 1 | call setline(l, '	cin.tie(nullptr);')
-let l = l + 1 | call setline(l, '	int T = 1; ')
-let l = l + 1 | call setline(l, '	cin >> T;')
-let l = l + 1 | call setline(l, '	while(T--) solve();')
-let l = l + 1 | call setline(l, '	return 0;')
-let l = l + 1 | call setline(l, '}')
-
-endfunc
