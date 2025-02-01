@@ -49,32 +49,20 @@ k.set("n", "<leader>nh", ":nohl<CR>")
 
 function CompileAndRun()
     vim.cmd("write")  -- 保存文件
-
     -- 获取当前文件的完整路径（带扩展名）
     local filepath = vim.fn.expand('%:p')  
     -- 获取当前文件的文件名（不带扩展名）作为输出文件名
     local output_name = vim.fn.expand('%:t:r')  -- 当前文件名（不带扩展名）
-
-    -- 判断当前操作系统
     if vim.fn.has("unix") == 1 then
-        -- Linux 或其他 Unix 系统
         local file_path = vim.fn.expand('%:p')
         local output_name = vim.fn.expand('%:p:r')
-    
-        -- 更改当前工作目录为文件所在目录
         vim.cmd("lcd " .. vim.fn.expand('%:p:h'))
-    
-        -- 构建编译命令
         local compile_cmd = string.format("g++ -std=c++20 \"%s\" -o \"%s\"", file_path, output_name)
-        -- 构建运行命令
         local run_cmd = string.format("./%s", output_name:match("([^/]+)$"))
-    
-        -- 尝试编译并运行
         if vim.fn.system(compile_cmd) == "" then
             vim.cmd(string.format("vsplit | term bash -c \"%s\"", run_cmd))
         end
     elseif vim.fn.has("win32") == 1 then
-        -- Windows 系统
         vim.cmd(string.format(
             "vsplit | term g++ \"%s\" -o \"%s\" && \"%s\"",
             filepath,  -- 源文件
@@ -82,13 +70,12 @@ function CompileAndRun()
             output_name  -- 运行输出文件
         ))
     end
-
     -- 打开终端后自动进入插入模式
     vim.cmd("startinsert")
 end
 
 vim.api.nvim_set_keymap('n', '<F5>', ':lua CompileAndRun()<CR>', { noremap = true, silent = true })
--- Tree
+
 -- 切换 NvimTree 文件管理窗口
 vim.api.nvim_set_keymap('n', '<Leader>e', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
 
@@ -103,9 +90,6 @@ vim.api.nvim_set_keymap('n', 'ce', ':CompetiTest edit_testcase<CR>', { noremap =
 vim.api.nvim_set_keymap('n', 'ct', ':CompetiTest receive testcases<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'cp', ':CompetiTest receive problem<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'cc', ':CompetiTest receive contest<CR>', { noremap = true, silent = true })
-
--- 使用 Telescope 打开文件浏览器
-vim.api.nvim_set_keymap('n', '<Leader>fb', ":Telescope file_browser<CR>", { noremap = true, silent = true })
 
 -- 字体大小调整
 local default_font_size = 12
@@ -215,10 +199,7 @@ require("lazy").setup({
       "nvim-lualine/lualine.nvim",
       dependencies = { "nvim-tree/nvim-web-devicons" },
       config = function()
-        -- 配置 lualine
         local lualine = require("lualine")
-
-        -- 简洁配置
         local config_minimal = {
           options = {
             theme = "auto",  -- 自动主题
@@ -227,15 +208,13 @@ require("lazy").setup({
           },
           sections = {
             lualine_a = { "mode" },                 -- 当前模式
-            lualine_b = { "branch" },               -- Git 分支
+            --lualine_b = { "branch" },               -- Git 分支
             lualine_c = { "filename" },             -- 当前文件名
             lualine_x = { "filetype" },             -- 文件类型
             lualine_y = { "progress" },             -- 编辑进度
             lualine_z = { "location" },             -- 当前光标位置
           },
         }
-
-        -- 应用配置
         lualine.setup(config_minimal)
       end,
     },
@@ -278,7 +257,7 @@ require("lazy").setup({
         run = ":TSUpdate",
         config = function()
             require('nvim-treesitter.configs').setup {
-                ensure_installed = { "cpp", "lua" },
+                ensure_installed = { "cpp" },
                 highlight = { 
                     enable = true,
                     additional_vim_regex_highlighting = { "cpp" },
@@ -324,7 +303,7 @@ require("lazy").setup({
       -- 配置 Mason
       require("mason").setup()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "clangd", }, -- 自动安装的 LSP 服务器
+        ensure_installed = {  "clangd", }, -- 自动安装的 LSP 服务器
       })
 
       -- 配置 LSP 诊断图标
@@ -348,36 +327,18 @@ require("lazy").setup({
       -- 配置 LSP 客户端
       local lspconfig = require("lspconfig")
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-
-      -- 通用 LSP 配置
-      local common_setup = {
-        capabilities = capabilities,
-        on_attach = on_attach,
-      }
-
-      -- Lua LSP 配置
-      lspconfig.lua_ls.setup(vim.tbl_extend("force", common_setup, {
-        settings = {
-          Lua = {
-            diagnostics = {
-              globals = { "vim" }, -- 忽略 `vim` 全局变量的未定义警告
-            },
-            telemetry = {
-              enable = false, -- 禁用遥测
-            },
-          },
-        },
-      }))
-
+					
       -- Clangd LSP 配置
-      lspconfig.clangd.setup(common_setup)
+      lspconfig.clangd.setup({
+	capabilities = capabilities,
+        on_attach = on_attach,					
+      })
 
     end,
   },
  {
   "hrsh7th/nvim-cmp",
-  event = "InsertEnter", -- 延迟加载，仅在进入插入模式时加载
+  event = "InsertEnter", -- 仅在进入插入模式时加载
   dependencies = {
     "hrsh7th/cmp-nvim-lsp", -- LSP 补全源
     "hrsh7th/cmp-buffer", -- 缓冲区补全源
@@ -435,7 +396,6 @@ require("lazy").setup({
       sources = cmp.config.sources({
         { name = "nvim_lsp" }, -- LSP 补全
         { name = "buffer" }, -- 缓冲区补全
-        { name = "path" }, -- 路径补全
       }),
       completion = {
         keyword_length = 2, -- 触发补全的最少字符数
@@ -641,9 +601,9 @@ require("lazy").setup({
   checker = { enabled = true },               -- 自动检查插件更新
 })
 
--- 配置 LSP
-require 'lspconfig'.clangd.setup {}  -- 启用 clangd 自动补全
-require 'lspconfig'.lua_ls.setup {}  -- 启用 Lua LSP
+-- 启用 clangd 自动补全
+require 'lspconfig'.clangd.setup {}  
 
+-- 选择主题
 vim.cmd([[colorscheme monokai_soda]])
 --vim.cmd([[colorscheme tokyonight]])
