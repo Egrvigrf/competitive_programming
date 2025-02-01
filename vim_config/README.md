@@ -9,14 +9,12 @@ For Linux: "$HOME/.config/nvim"
 
 - 解决windows下lsp clangd报错检测不到c++头文件的问题  
 在%LOCALAPPDATA%/clangd目录下建立新建一个config.yaml文件  
-配置如下  
-```
+配置如下  [参考Github讨论](https://github.com/clangd/clangd/issues/537#issuecomment-1479544442)  
+```  
 CompileFlags:  
   Add:
     - --target=x86_64-w64-windows-gnu
-```
-[参考Github讨论](https://github.com/clangd/clangd/issues/537#issuecomment-1479544442)  
-
+```  
 - 使用clang-format 格式化代码  
 用mason-tool由于网络原因没法安装llvm，手动安装llvm（含有clang-format）  
 把/bin添加到环境变量后  
