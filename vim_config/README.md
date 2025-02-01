@@ -1,4 +1,5 @@
-## 安装
+## nvim配置文件位置
+复制到对应目录下即可安装  
 For windows: %LOCALAPPDATA%/nvim  
 For Linux: "$HOME/.config/nvim"  
 
