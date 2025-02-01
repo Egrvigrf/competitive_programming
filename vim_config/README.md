@@ -1,13 +1,13 @@
 ## 安装
-For windows: %LOCALAPPDATA%/nvim
-For Linux: "$HOME/.config/nvim"
+For windows: %LOCALAPPDATA%/nvim  
+For Linux: "$HOME/.config/nvim"  
 
 ## nvimconfig
-- 使用lazy插件管理器
-- mason来管理代码补全
+- 使用lazy插件管理器  
+- mason来管理代码补全  
 
 ## 可能出现的问题
-- lualine和telescope的符号显示乱码，需要设置支持图形字符的终端字体（比如Nerd fonts）
+- lualine和telescope的符号显示乱码，需要设置支持图形字符的终端字体（比如Nerd fonts） 
 [Nerd_font](https://www.nerdfonts.com/)  
   
 
@@ -22,7 +22,7 @@ CompileFlags:
 [参考Github讨论](https://github.com/clangd/clangd/issues/537#issuecomment-1479544442)  
 
 ## 
-使用clang-format 格式化代码
+使用clang-format 格式化代码  
 用mason-tool由于网络原因没法安装llvm，手动安装llvm（含有clang-format）  
 把/bin添加到环境变量后  
 [llvm](https://github.com/llvm/llvm-project/releases/)  
@@ -33,6 +33,6 @@ CompileFlags:
 
 
 ## 其他问题
-windows cmd 没有添加到环境变量，手动添加C:\Windows\System32即可
-linux clangd-format 如果用:Masoninstall 安装失败，可以手动安装,可能是没有国内源
+windows cmd 没有添加到环境变量，手动添加C:\Windows\System32即可  
+linux clangd-format 如果用:Masoninstall 安装失败，可以手动安装,可能是没有国内源  
 
