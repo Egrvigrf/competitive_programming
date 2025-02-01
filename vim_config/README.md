@@ -1,7 +1,7 @@
-## nvim配置文件位置
+## 安装
 复制到对应目录下即可安装  
-For windows: %LOCALAPPDATA%/nvim  
-For Linux: "$HOME/.config/nvim"  
+For windows: `%LOCALAPPDATA%/nvim`    
+For Linux:   `"$HOME/.config/nvim"`    
 
 ## 可能出现的问题
 - lualine和telescope的符号显示乱码，需要设置支持图形字符的终端字体（比如Nerd fonts） 
