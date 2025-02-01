@@ -16,14 +16,14 @@ CompileFlags:
     - --target=x86_64-w64-windows-gnu
 ```  
 - 使用clang-format 格式化代码  
-用mason-tool由于网络原因没法安装llvm，手动安装llvm（含有clang-format）  
-把/bin添加到环境变量后  
-[llvm](https://github.com/llvm/llvm-project/releases/)  
-然后在conform自动补全插件里设置  
+用mason-tool由于网络原因没法安装llvm，手动安装[llvm](https://github.com/llvm/llvm-project/releases/)  （含有clang-format）  
+把/bin添加到环境变量后,然后在conform自动补全插件里设置    
 
-安装失败可以尝试直接用:MasonInstall clang-format --force  
+- 安装失败可以尝试直接用:MasonInstall clang-format --force  
 :MasonInstall clangd --force  
 
-- windows cmd 没有添加到环境变量，手动添加C:\Windows\System32即可  
-- linux clangd-format 如果用:Masoninstall 安装失败，可以手动安装,可能是没有国内源  
+- windows cmd 没有添加到环境变量  
+手动添加C:\Windows\System32即可  
+- linux clangd-format 如果用:Masoninstall 安装失败  
+可以手动安装,可能是没有国内源  
 
